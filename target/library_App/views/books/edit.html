@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование книги</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<header class="w3-container w3-blue-gray ">
+    <h1 class="w3-right">Library App</h1>
+</header>
+<div class="w3-sidebar w3-bar-block w3-boarder w3-light-grey" style="width:25%">
+    <h4 class="w3-bar-item">Навигация по сайту</h4>
+    <a href="/books" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-book w3-margin-right"></div>
+        Список всех книг</a>
+    <a href="/people" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-user w3-margin-right"></div>
+        Список всех людей</a>
+</div>
+<div style="margin-left:30%">
+    <h4>Информация о книге:</h4>
+    <form class="w3-container" th:method="PATCH" th:object="${book}" th:action="@{/books/{id}(id = ${book.getId()})}">
+            <label for="namebook">Наименование книги:</label>
+            <input class="w3-input w3-border" style="width: 30%" type="text" th:field="*{namebook}" id="namebook">
+            <div th:if="${#fields.hasErrors('namebook')}" th:errors="*{namebook}">Namebook error</div>
+            <br>
+            <label for="author">Автор книги:</label>
+            <input class="w3-input w3-border" style="width: 30%" type="text" th:field="*{author}" id="author">
+            <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}">Author error</div>
+            <br>
+            <label for="date">Дата написания книги:</label>
+            <input class="w3-input w3-border" style="width: 30%" type="text" th:field="*{year}" id="date">
+            <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}">Year error</div>
+            <br>
+            <button type="submit" class="w3-button w3-border w3-round">Обновить</button>
+</form>
+</div>
+</body>
+</html>

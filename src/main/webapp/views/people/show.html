@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о человеке</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<header class="w3-container w3-blue-gray ">
+    <h1 class="w3-right">Library App</h1>
+</header>
+<div class="w3-sidebar w3-bar-block w3-boarder w3-light-grey" style="width:25%">
+    <h4 class="w3-bar-item">Навигация по сайту</h4>
+    <a href="/books" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-book w3-margin-right"></div>
+        Список всех книг</a>
+    <a href="/people" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-user w3-margin-right"></div>
+        Список всех людей</a>
+</div>
+<div style="margin-left:30%">
+    <h4>Информация о пользователе:</h4>
+    <div class="w3-container w3-margin-right">
+    <table class="w3-table w3-border" >
+        <tr class="w3-border w3-light-grey">
+            <th class="w3-border">ФИО пользователя</th>
+            <th class="w3-border">Год рождения</th>
+            <th class="w3-border">Книги в пользовании</th>
+        </tr>
+        <tr class="w3-border">
+            <td class="w3-border" th:text="${person.getFio()}"/>
+            <td class="w3-border" th:text="${person.getDate()}"/>
+            <td class="w3-border">
+            <div th:text="${books.size()} == 0 ? 'Человек не взял ни одной книги' : ''"/>
+            <div th:if="${books.size()} != 0" th:each="book:${books}">
+                <a th:text="${book.getAuthor()} + ', ' + ${book.getNamebook()} + ', ' +
+                ${book.getYear()}" th:href="@{/books/{id}(id=${book.getId()})}">
+                </a>
+                <br>
+            </div>
+            </td>
+        </tr>
+    </table>
+    </div>
+    <br>
+    <hr>
+    <form th:method="GET" th:action="@{/people/{id}/edit (id = ${person.getId()})}">
+        <button class="w3-button w3-border w3-round" type="submit">Редактировать человека</button>
+    </form>
+    <br>
+    <form th:method="DELETE" th:action="@{/people/{id} (id = ${person.getId()})}">
+        <button class="w3-button w3-border w3-round" type="submit">Удалить человека</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>

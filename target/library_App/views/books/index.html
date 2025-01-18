@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список всех книг</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<header class="w3-container w3-blue-gray ">
+    <h1 class="w3-right">Library App</h1>
+</header>
+
+<div class="w3-sidebar w3-bar-block w3-boarder w3-light-grey" style="width:25%">
+    <h4 class="w3-bar-item">Навигация по сайту</h4>
+    <a href="/books" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-book w3-margin-right"></div>
+        Список всех книг</a>
+    <a href="/people" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-user w3-margin-right"></div>
+        Список всех людей</a>
+</div>
+<div style="margin-left:30%">
+    <h4 >
+        Список всех книг:
+    </h4>
+    <div th:each="book : ${books}">
+        <p>
+            <a th:href="@{/books/{id} (id = ${book.getId()})}" th:text="${book.getAuthor()} + ', ' + ${book.getNamebook()} + ', ' + ${book.getYear()}">value</a>
+        </p>
+    </div>
+    <hr>
+    <a class="w3-button w3-border w3-round" href="/books/new">Добавить книгу</a>
+</div>
+</body>
+</html>

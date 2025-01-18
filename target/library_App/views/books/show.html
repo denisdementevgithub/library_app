@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о книге</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+</head>
+<body>
+<header class="w3-container w3-blue-gray ">
+    <h1 class="w3-right">Library App</h1>
+</header>
+<div class="w3-sidebar w3-bar-block w3-boarder w3-light-grey" style="width:25%">
+    <h4 class="w3-bar-item">Навигация по сайту</h4>
+    <a href="/books" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-book w3-margin-right"></div>
+        Список всех книг</a>
+    <a href="/people" class="w3-bar-item w3-button">
+        <div class="glyphicon glyphicon-user w3-margin-right"></div>
+        Список всех людей</a>
+</div>
+<div style="margin-left:30%">
+    <h4>Информация о книге:</h4>
+    <div class="w3-container w3-margin-right">
+    <table class="w3-table w3-border" >
+        <tr class="w3-border w3-light-grey">
+            <th class="w3-border">Название книги</th>
+            <th class="w3-border">Автор книги</th>
+            <th class="w3-border">Год написания книги</th>
+        </tr>
+        <tr class="w3-border">
+            <td class="w3-border" th:text="${book.getNamebook()}">Название книги</td>
+            <td class="w3-border" th:text="${book.getAuthor()}">Автор книги</td>
+            <td class="w3-border" th:text="${book.year}">Год написания книги</td>
+        </tr>
+    </table>
+    </div>
+    <br>
+    <div class="w3-center w3-opacity" th:text="${person.getFio()} == null ? 'Эта книга свободна. Кому ее назначить?' : 'Книга сейчас у : ' + ${person.getFio()}"/>
+    <form  th:if="${person.getFio()} != null" th:method="PATCH" th:action="@{/books/{id}/make_id_person_null(id = ${book.getId()})}">
+        <input type="submit" value="Освободить книгу" />
+    </form>
+    <form class="w3-center" th:if="${person.getFio()} == null" th:method="PATCH" th:action="@{/books/{id}/update_person_id(id = ${book.getId()})}">
+        <label  for="personChoose">Выберите человека: </label>
+        <select th:object="${person}" th:field="*{id}" id="personChoose">
+            <option th:each="person : ${people}" th:value="${person.getId()}" th:text="${person.getFio()}"></option>
+        </select>
+        <br>
+        <button type="submit" class="w3-cener w3-button w3-border w3-round w3-margin-top w3-margin-left">Назначить книгу</button>
+    </form>
+    <br>
+    <hr>
+
+    <form th:method="GET" th:action="@{/books/{id}/edit(id = ${book.getId()})}">
+        <button type="submit" class="w3-button w3-border w3-round w3-margin-top">Отредактировать книгу</button>
+    </form>
+
+
+    <form th:method="DELETE" th:action="@{/books/{id} (id = ${book.getId()})}">
+        <button type="submit" class="w3-button w3-border w3-round w3-margin-top">Удалить книгу</button>
+    </form>
+
+</div>
+
+
+
+</body>
+</html>
