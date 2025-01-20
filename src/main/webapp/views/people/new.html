@@ -32,7 +32,7 @@
         <input class="w3-input w3-border" style="width: 30%" type="text" th:field="*{fio}" id="fio"/>
         <div th:if="${#fields.hasErrors('fio')}" th:errors="*{fio}">FIO error</div>
         <br/>
-        <label for="dat">Дата рождения:</label>
+        <label for="dat">Год рождения:</label>
         <input class="w3-input w3-border" style="width: 30%" type="text" th:field="*{date}" id="dat"/>
         <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Date error</div>
         <br/>

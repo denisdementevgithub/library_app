@@ -13,6 +13,7 @@ import ru.dementev.libraryapp.model.Person;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
@@ -31,14 +32,18 @@ public class BookController {
     }
     @GetMapping("/{id}")
     public String showBook(@PathVariable("id") int id, Model model){
-        Book book = bookDAO.show(id);
-        model.addAttribute("book", book);
-        System.out.println(book.getId_person());
-        if (personDAO.show(book.getId_person()) == null) {
-            model.addAttribute("people", personDAO.index());
-            model.addAttribute("person", new Person());
-        } else {
-            model.addAttribute("person", personDAO.show(book.getId_person()));
+        Optional<Book> bookOptional = bookDAO.show(id);
+        if (bookOptional.isPresent()) {
+            Book book = bookOptional.get();
+            model.addAttribute("book", book);
+            Optional<Person> personOptional = personDAO.show(book.getId_person());
+            if (personOptional.isPresent()) {
+                Person person = personOptional.get();
+                model.addAttribute("person", person);
+            } else {
+                model.addAttribute("people", personDAO.index());
+                model.addAttribute("person", new Person());
+            }
         }
         return "books/show";
     }

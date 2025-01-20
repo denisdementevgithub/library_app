@@ -30,7 +30,10 @@ public class PersonController {
     @GetMapping("/{id}")
     public String showPerson(@PathVariable("id") int id, Model model) {
         //получаем одного человека по id из dao и передаем через модели в представление
-        model.addAttribute("person", personDAO.show(id));
+        if (personDAO.show(id).isPresent()) {
+            model.addAttribute("person", personDAO.show(id).get());
+        }
+
         model.addAttribute("books", bookDAO.showBooksForIdPerson(id));
         return "people/show";
     }

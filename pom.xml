@@ -64,10 +64,12 @@
       <artifactId>postgresql</artifactId>
       <version>42.2.23</version>
     </dependency>
-
-
-
-
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring_version}</version>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
